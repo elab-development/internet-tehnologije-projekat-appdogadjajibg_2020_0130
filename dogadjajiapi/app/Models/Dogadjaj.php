@@ -10,7 +10,7 @@ class Dogadjaj extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'start_time', 'end_time', 'mesto_id', 'kategorija_id', 'user_id',
+        'title', 'description', 'start_time', 'end_time', 'mesto_id', 'kategorija_id', 
     ];
 
     public function mesto()
@@ -22,9 +22,5 @@ class Dogadjaj extends Model
     {
         return $this->belongsTo(Kategorija::class);
     }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+ 
 }
