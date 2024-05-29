@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mestos', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('kapacitet');
-
-            $table->timestamps();
+        Schema::table('mestos', function (Blueprint $table) {
+            $table->dropColumn('kapacitet');
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mestos');
+        Schema::table('mestos', function (Blueprint $table) {
+            $table->string('kapacitet');
+        });
     }
 };

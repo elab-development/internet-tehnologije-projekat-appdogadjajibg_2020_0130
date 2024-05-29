@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mestos', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('kapacitet');
-
-            $table->timestamps();
+        Schema::table('dogadjajs', function (Blueprint $table) {
+            $table->dateTime('start_time')->after('description');
+            $table->dateTime('end_time')->after('start_time');
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mestos');
+        Schema::table('dogadjajs', function (Blueprint $table) {
+            $table->dropColumn('start_time');
+            $table->dropColumn('end_time');
+        });
     }
 };

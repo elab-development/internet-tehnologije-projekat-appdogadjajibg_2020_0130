@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dogadjaj', function (Blueprint $table) {
+        Schema::create('dogadjajs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->text('description'); 
             $table->unsignedBigInteger('mesto_id');
             $table->unsignedBigInteger('kategorija_id');
             $table->timestamps();
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dogadjaj');
+        Schema::dropIfExists('dogadjajs');
     }
 };
