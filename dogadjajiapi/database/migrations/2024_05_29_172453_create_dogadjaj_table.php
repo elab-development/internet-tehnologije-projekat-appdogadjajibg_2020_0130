@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description'); 
+            $table->text('image'); 
+
             $table->unsignedBigInteger('mesto_id');
             $table->unsignedBigInteger('kategorija_id');
             $table->timestamps();

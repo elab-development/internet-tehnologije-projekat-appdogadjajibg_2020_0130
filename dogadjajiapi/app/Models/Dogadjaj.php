@@ -10,7 +10,7 @@ class Dogadjaj extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'start_time', 'end_time', 'mesto_id', 'kategorija_id', 
+        'title', 'description', 'start_time', 'end_time', 'mesto_id', 'kategorija_id', 'image'
     ];
 
     public function mesto()
