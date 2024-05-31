@@ -18,7 +18,7 @@ class MestoResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
-           // 'dogadjaji' => DogadjajResource::collection($this->whenLoaded('dogadjaji')),
+          
         ];
     }
 }

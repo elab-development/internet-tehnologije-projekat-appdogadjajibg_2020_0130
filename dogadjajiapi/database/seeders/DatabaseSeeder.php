@@ -22,10 +22,6 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        Uloga::create(['name' => 'korisnik']);
-        Uloga::create(['name' => 'admin']);
-
-
         $users = User::factory(10)->create();
 
         // Dodavanje nasumičnih uloga svakom korisniku
@@ -54,7 +50,7 @@ class DatabaseSeeder extends Seeder
         
 
 
-        Dogadjaj::factory()->count(10)->create();
+        Dogadjaj::factory()->count(50)->create();
 
 
 

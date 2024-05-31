@@ -24,7 +24,7 @@ class UlogaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:uloga,name',
+            'name' => 'required|string|max:255|unique:ulogas,name',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +41,7 @@ class UlogaController extends Controller
         $uloga = Uloga::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'sometimes|required|string|max:255|unique:uloga,name,' . $id,
+            'name' => 'required|string|max:255|unique:ulogas,name,' . $id,
         ]);
 
         if ($validator->fails()) {

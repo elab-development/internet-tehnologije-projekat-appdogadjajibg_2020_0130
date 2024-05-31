@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Mesto;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DogadjajResource extends JsonResource
@@ -20,8 +21,8 @@ class DogadjajResource extends JsonResource
             'description' => $this->description,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
-            'mesto' => new MestoResource($this->whenLoaded('mesto')),
-            'kategorija' => new KategorijaResource($this->whenLoaded('kategorija')),
+            'mesto' => new MestoResource(Mesto::find($this->mesto_id)),
+            'kategorija' => new KategorijaResource($this->kategorija),
         ];
     }
 }

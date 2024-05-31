@@ -19,34 +19,41 @@ use App\Http\Controllers\UlogaController;
 |
 */
 
-Route::apiResource('uloge', UlogaController::class);
 
-Route::get('/dogadjaji', [DogadjajController::class, 'index']);
-Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
-Route::post('/dogadjaji', [DogadjajController::class, 'store']);
-Route::put('/dogadjaji/{id}', [DogadjajController::class, 'update']);
-Route::delete('/dogadjaji/{id}', [DogadjajController::class, 'destroy']);
-Route::get('/dogadjaji/search', [DogadjajController::class, 'search']); 
-
-Route::get('/kategorije', [KategorijaController::class, 'index']);
-Route::post('/kategorije', [KategorijaController::class, 'store']);
-Route::delete('/kategorije/{id}', [KategorijaController::class, 'destroy']);
-
-Route::get('/mesta', [MestoController::class, 'index']);
-Route::post('/mesta', [MestoController::class, 'store']);
-Route::delete('/mesta/{id}', [MestoController::class, 'destroy']);
-
-
+//NEZASTICENE RUTE
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+  
+Route::get('/kategorije', [KategorijaController::class, 'index']);
+
+
+Route::get('/mesta', [MestoController::class, 'index']);
+
+
+
+
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    
+    Route::post('/dogadjaji', [DogadjajController::class, 'store']);
+    Route::put('/dogadjaji/{id}', [DogadjajController::class, 'update']);
+    Route::delete('/dogadjaji/{id}', [DogadjajController::class, 'destroy']);
+
+    Route::post('/mesta', [MestoController::class, 'store']);
+    Route::delete('/mesta/{id}', [MestoController::class, 'destroy']);
+
+
+    Route::post('/kategorije', [KategorijaController::class, 'store']);
+    Route::delete('/kategorije/{id}', [KategorijaController::class, 'destroy']);
+
+    Route::apiResource('uloge', UlogaController::class);
 });
 
 Route::middleware(['auth:sanctum','role:korisnik'])->group(function () {
-     
+    Route::get('/dogadjaji/search', [DogadjajController::class, 'search']); 
+    Route::get('/dogadjaji', [DogadjajController::class, 'index']);
+    Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
 });
 Route::middleware(['auth:sanctum','role:admin,korisnik'])->group(function () {
+     
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('myProfile', [AuthController::class, 'myProfile']);
 });

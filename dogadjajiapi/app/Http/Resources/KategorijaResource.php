@@ -15,9 +15,9 @@ class KategorijaResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-           // 'dogadjaji' => DogadjajResource::collection($this->whenLoaded('dogadjaji')),
+           'id' => $this->id,
+            'name' => $this->name, 
+        
         ];
     }
 }
