@@ -6,6 +6,8 @@ use App\Http\Controllers\MestoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DogadjajController;
+use App\Http\Controllers\UlogaController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +19,7 @@ use App\Http\Controllers\DogadjajController;
 |
 */
 
-
+Route::apiResource('uloge', UlogaController::class);
 
 Route::get('/dogadjaji', [DogadjajController::class, 'index']);
 Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
