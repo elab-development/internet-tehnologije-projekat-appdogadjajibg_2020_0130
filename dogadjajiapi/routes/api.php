@@ -24,7 +24,7 @@ Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
 Route::post('/dogadjaji', [DogadjajController::class, 'store']);
 Route::put('/dogadjaji/{id}', [DogadjajController::class, 'update']);
 Route::delete('/dogadjaji/{id}', [DogadjajController::class, 'destroy']);
-
+Route::get('/dogadjaji/search', [DogadjajController::class, 'search']); 
 
 Route::get('/kategorije', [KategorijaController::class, 'index']);
 Route::post('/kategorije', [KategorijaController::class, 'store']);

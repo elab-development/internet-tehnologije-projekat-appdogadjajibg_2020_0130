@@ -93,4 +93,30 @@ class DogadjajController extends Controller
 
         return response()->json(null, 204);
     }
+
+    
+    public function search(Request $request)
+    {
+        $query = Dogadjaj::query();
+
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->has('description')) {
+            $query->where('description', 'like', '%' . $request->input('description') . '%');
+        }
+
+        if ($request->has('mesto_id')) {
+            $query->where('mesto_id', $request->input('mesto_id'));
+        }
+
+        if ($request->has('kategorija_id')) {
+            $query->where('kategorija_id', $request->input('kategorija_id'));
+        }
+
+        $dogadjaji = $query->with(['mesto', 'kategorija'])->get();
+
+        return DogadjajResource::collection($dogadjaji);
+    }
 }
