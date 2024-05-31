@@ -5,7 +5,7 @@ use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\MestoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DogadjajController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+
+Route::get('/dogadjaji', [DogadjajController::class, 'index']);
+Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
+Route::post('/dogadjaji', [DogadjajController::class, 'store']);
+Route::put('/dogadjaji/{id}', [DogadjajController::class, 'update']);
+Route::delete('/dogadjaji/{id}', [DogadjajController::class, 'destroy']);
+
 
 Route::get('/kategorije', [KategorijaController::class, 'index']);
 Route::post('/kategorije', [KategorijaController::class, 'store']);
