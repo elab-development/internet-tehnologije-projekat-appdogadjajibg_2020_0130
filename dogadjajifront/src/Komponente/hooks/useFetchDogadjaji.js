@@ -16,7 +16,7 @@ const useFetchDogadjaji = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        setDogadjaji(response.data);
+        setDogadjaji(response.data.data);
         setLoading(false);
       } catch (error) {
         setError(error);

@@ -1,0 +1,52 @@
+ 
+.dogadjaji-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .dogadjaj-kartica {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: 300px; /* Adjust the width as needed */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dogadjaj-kartica:hover {
+    transform: scale(1.05);
+  }
+  
+  .dogadjaj-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .dogadjaj-info {
+    padding: 20px;
+  }
+  
+  .dogadjaj-title {
+    font-size: 1.5rem;
+    color: #343a3f;
+    margin-bottom: 10px;
+  }
+  
+  .dogadjaj-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .dogadjaj-time, .dogadjaj-mesto, .dogadjaj-kategorija {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  

@@ -5,6 +5,7 @@ import Pocetna from './Komponente/PocetnaStranica/Pocetna';
 import Login from './Komponente/Sesija/Login';
 import Register from './Komponente/Sesija/Register';
 import Navbar from './Komponente/nav/Navbar';
+import DogadjajiList from './Komponente/Dogadjaji/DogadjajiList';
 
 function App() {
   const [user, setUser] = useState();
@@ -18,6 +19,9 @@ function App() {
           <Route path="/" element={<Pocetna />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/dogadjaji" element={<DogadjajiList />} />
+
         </Routes>
       </div>
     </Router>

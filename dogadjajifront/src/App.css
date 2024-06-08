@@ -86,3 +86,10 @@
   text-align: center;
   margin-bottom: 15px;
 }
+
+.dogadjaji-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
