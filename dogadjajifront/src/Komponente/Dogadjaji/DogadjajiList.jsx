@@ -6,14 +6,25 @@ import './DogadjajKartica.css';
 const DogadjajiList = () => {
   const { dogadjaji, loading, error } = useFetchDogadjaji();
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredDogadjaji = dogadjaji.filter(dogadjaj =>
-    dogadjaj.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const filteredDogadjaji = dogadjaji
+    .filter(dogadjaj =>
+      dogadjaj.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      const dateA = new Date(a.start_time);
+      const dateB = new Date(b.start_time);
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>There was an error loading the events: {error.message}</p>;
@@ -28,6 +39,10 @@ const DogadjajiList = () => {
           onChange={handleSearchChange}
           className="search-input"
         />
+        <select value={sortOrder} onChange={handleSortChange} className="sort-select">
+          <option value="asc">Sortiraj po datumu: Uzlazno</option>
+          <option value="desc">Sortiraj po datumu: Silazno</option>
+        </select>
       </div>
       <div className="dogadjaji-list">
         {filteredDogadjaji.map(dogadjaj => (

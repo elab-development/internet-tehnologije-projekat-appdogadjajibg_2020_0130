@@ -1,5 +1,20 @@
- 
-.dogadjaji-list {
+/* DogadjajKartica.css */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px; /* Add gap between search input and sort select */
+  }
+  
+  .search-input, .sort-select {
+    width: 40%; /* Adjust the width as needed */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  
+  .dogadjaji-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
