@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../PocetnaStranica/HomePage.css';  
 import InputField from './InputField';  
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState('ernser.rodger@example.org');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState('');
-
+  let navigate= useNavigate();
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -16,6 +17,7 @@ const Login = ({ setUser }) => {
       const { access_token, user } = response.data;
       sessionStorage.setItem('token', access_token);
       setUser(user);
+      navigate('/dogadjaji')
     } catch (error) {
       setError('Invalid credentials. Please try again.');
     }

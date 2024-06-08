@@ -37,9 +37,14 @@ function Navbar({ user, setUser }) {
             <Link to="/" className="nav-link">Početna</Link>
           </li>
           {user ? (
-            <li className="nav-item">
-              <button onClick={handleLogout} className="nav-link">Logout</button>
-            </li>
+             <>
+              <li className="nav-item">
+                <Link to="/dogadjaji" className="nav-link">Dogadjaji</Link>
+              </li>
+              <li className="nav-item">
+                <button onClick={handleLogout} className="nav-link">Logout</button>
+              </li>
+            </>
           ) : (
             <>
               <li className="nav-item">
