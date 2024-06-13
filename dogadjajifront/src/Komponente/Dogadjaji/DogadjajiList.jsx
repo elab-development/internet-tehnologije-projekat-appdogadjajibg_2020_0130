@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import DogadjajKartica from './DogadjajKartica';
 import useFetchDogadjaji from '../hooks/useFetchDogadjaji';
+import Pagination from './Pagination';
 import './DogadjajKartica.css';
 
 const DogadjajiList = () => {
   const { dogadjaji, loading, error } = useFetchDogadjaji();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -15,6 +18,9 @@ const DogadjajiList = () => {
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
   };
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   const filteredDogadjaji = dogadjaji
     .filter(dogadjaj =>
@@ -25,6 +31,10 @@ const DogadjajiList = () => {
       const dateB = new Date(b.start_time);
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
+
+  const currentPosts = filteredDogadjaji.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>There was an error loading the events: {error.message}</p>;
@@ -45,10 +55,16 @@ const DogadjajiList = () => {
         </select>
       </div>
       <div className="dogadjaji-list">
-        {filteredDogadjaji.map(dogadjaj => (
+        {currentPosts.map(dogadjaj => (
           <DogadjajKartica key={dogadjaj.id} dogadjaj={dogadjaj} />
         ))}
       </div>
+      <Pagination
+        totalPosts={filteredDogadjaji.length}
+        postsPerPage={postsPerPage}
+        currentPage={currentPage}
+        paginate={paginate}
+      />
     </div>
   );
 };
