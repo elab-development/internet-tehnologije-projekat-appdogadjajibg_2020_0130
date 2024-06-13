@@ -36,6 +36,9 @@ function Navbar({ user, setUser }) {
           <li className="nav-item">
             <Link to="/" className="nav-link">Početna</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/seasonTickets" className="nav-link">Sezonske karte</Link>
+          </li>
           {user ? (
              <>
               <li className="nav-item">

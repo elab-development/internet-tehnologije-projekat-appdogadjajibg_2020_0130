@@ -6,6 +6,7 @@ import Login from './Komponente/Sesija/Login';
 import Register from './Komponente/Sesija/Register';
 import Navbar from './Komponente/nav/Navbar';
 import DogadjajiList from './Komponente/Dogadjaji/DogadjajiList';
+import SeasonTicketPackages from './Komponente/SeasonTickets/SeasonTicketPackages';
 
 function App() {
   const [user, setUser] = useState();
@@ -17,6 +18,8 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Pocetna />} />
+          <Route path="/seasonTickets" element={<SeasonTicketPackages />} />
+
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
 
