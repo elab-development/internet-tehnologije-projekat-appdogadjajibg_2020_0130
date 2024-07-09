@@ -7,9 +7,10 @@ import Register from './Komponente/Sesija/Register';
 import Navbar from './Komponente/nav/Navbar';
 import DogadjajiList from './Komponente/Dogadjaji/DogadjajiList';
 import SeasonTicketPackages from './Komponente/SeasonTickets/SeasonTicketPackages';
+import EventsScraper from './Komponente/Dogadjaji/Scraper/EventsScraper';
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   return (
     <Router>
@@ -22,8 +23,10 @@ function App() {
 
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
-
           <Route path="/dogadjaji" element={<DogadjajiList />} />
+
+          <Route path="/eventsScraper" element={<EventsScraper />} />
+
 
         </Routes>
       </div>

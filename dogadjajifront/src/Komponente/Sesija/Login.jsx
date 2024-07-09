@@ -6,7 +6,7 @@ import InputField from './InputField';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setUser }) => {
-  const [email, setEmail] = useState('ernser.rodger@example.org');
+  const [email, setEmail] = useState('larkin.rashad@example.net');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState('');
   let navigate= useNavigate();

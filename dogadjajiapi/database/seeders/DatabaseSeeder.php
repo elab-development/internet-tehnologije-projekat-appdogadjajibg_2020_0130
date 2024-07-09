@@ -22,10 +22,15 @@ class DatabaseSeeder extends Seeder
     {
 
 
+        Uloga::create(['name' => 'admin']);
+        Uloga::create(['name' => 'korisnik']);
+
         $users = User::factory(10)->create();
 
         // Dodavanje nasumičnih uloga svakom korisniku
         $uloge = Uloga::all();
+
+
 
         // Dodeljivanje nasumičnih uloga korisnicima
         $users->each(function ($user) use ($uloge) {
@@ -33,8 +38,6 @@ class DatabaseSeeder extends Seeder
                 $uloge->random(rand(1, 2))->pluck('id')->toArray()
             );
         });
-
-
         Mesto::factory()->count(10)->create();
 
 

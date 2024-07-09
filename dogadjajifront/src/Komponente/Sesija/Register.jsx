@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../PocetnaStranica/HomePage.css';  
 import InputField from './InputField';  
 
-const Register = ({ setUser }) => {
+const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,7 @@ const Register = ({ setUser }) => {
       });
       const { message } = response.data;
       alert(message);  
-      setUser(response.data.user);  
+   
     } catch (error) {
       setError('Registration failed. Please try again.');
     }

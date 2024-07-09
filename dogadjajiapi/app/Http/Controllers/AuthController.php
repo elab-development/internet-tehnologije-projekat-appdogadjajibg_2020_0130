@@ -59,15 +59,22 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $user = $request->user();
-
+        // Dohvatite trenutno autentifikovanog korisnika
+        $user = Auth::user();
+    
+        // Proverite da li je korisnik autentifikovan
         if ($user) {
+            // Obrišite trenutni pristupni token
             $user->currentAccessToken()->delete();
+    
+            // Vratite JSON odgovor sa porukom o uspešnom odjavljivanju
             return response()->json(['message' => 'Successfully logged out'], 200);
         }
-
+    
+        // Ako korisnik nije autentifikovan, vratite odgovor sa greškom
         return response()->json(['message' => 'User not authenticated'], 401);
     }
+    
 
     public function myProfile()
     {

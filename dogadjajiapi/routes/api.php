@@ -6,6 +6,7 @@ use App\Http\Controllers\MestoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DogadjajController;
+use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\UlogaController;
 
 /*
@@ -29,7 +30,8 @@ Route::get('/kategorije', [KategorijaController::class, 'index']);
 
 Route::get('/mesta', [MestoController::class, 'index']);
 
-
+Route::get('/dogadjaji', [DogadjajController::class, 'index']);
+Route::get('/dogadjajiScraper', [ScraperController::class, 'fetchEvents']);
 
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
@@ -49,10 +51,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
 Route::middleware(['auth:sanctum','role:korisnik'])->group(function () {
     Route::get('/dogadjaji/search', [DogadjajController::class, 'search']); 
-    Route::get('/dogadjaji', [DogadjajController::class, 'index']);
+    
     Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
 });
-Route::middleware(['auth:sanctum','role:admin,korisnik'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
      
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('myProfile', [AuthController::class, 'myProfile']);

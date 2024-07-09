@@ -16,7 +16,7 @@ function Navbar({ user, setUser }) {
         },
       });
       sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
+      
       setUser(null);
       navigate('/');
     } catch (error) {
