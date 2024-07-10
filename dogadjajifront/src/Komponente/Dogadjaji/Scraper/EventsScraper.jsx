@@ -41,8 +41,8 @@ const EventsScraper = () => {
             <h2 className="event-title">{event.title}</h2>
             <p className="event-description">{event.description}</p>
             {event.date && <p className="event-date">Date: {event.date}</p>}
-            <p className="event-place">Place: {event.place}</p>
-            <p className="event-category">Category: {event.category}</p>
+            <p className="event-place">Place: {event.location}</p>
+             <a href={event.link}>DETALJI</a>
           </div>
         ))}
       </div>
