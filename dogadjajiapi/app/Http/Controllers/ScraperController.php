@@ -3,65 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 
 class ScraperController extends Controller
 {
     public function fetchEvents()
     {
-        $urls = [
-        //    'https://allevents.in/belgrade/all',
-            'https://goout.rs/'
-        ];
+        // Fetch the HTML content from the API
+        $response = Http::withHeaders([
+            'X-Api-Key' => 'cdBp5C7hVS7gbjOonMGK5KRnvweJwu3ie2B5TQAt'
+        ])->get('https://api.api-ninjas.com/v1/webscraper?url=https://allevents.in/belgrade/all');
 
-        $events = [];
-        $client = new Client();
+        if ($response->successful()) {
+            $htmlContent = $response->json()['data']; // assuming the API response has 'html_content' field
 
-        foreach ($urls as $url) {
-            try {
-                $response = $client->get($url);
-                $html = $response->getBody()->getContents();
-                $crawler = new Crawler($html);
+            // Initialize the Crawler instance and filter events
+            $crawler = new Crawler($htmlContent);
 
-                if (strpos($url, 'allevents.in') !== false) {
-                    $crawler->filter('li.event-card')->each(function (Crawler $node, $index) use (&$events, $url) {
-                        $title = $node->filter('div.title h3')->text();
-                        $description = $node->filter('div.subtitle')->text();
-                        $date = $node->filter('div.meta-bottom .date')->text();
-                        $place = $node->filter('div.subtitle')->text();
+            // Assuming events are in a li with class 'event-card'
+            $events = $crawler->filter('.event-card')->each(function (Crawler $node) {
+                $title = $node->filter('.title h3')->count() ? $node->filter('.title h3')->text() : 'No title';
+                $date = $node->filter('.meta-bottom .date')->count() ? $node->filter('.meta-bottom .date')->text() : 'No date';
+                $location = $node->filter('.subtitle')->count() ? $node->filter('.subtitle')->text() : 'No location';
+                $link = $node->attr('data-link') ?? 'No link';
 
-                        $events[] = [
-                            'id' => $url . '-' . $index,
-                            'title' => $title,
-                            'description' => $description,
-                            'date' => $date,
-                            'place' => $place,
-                            'category' => 'Various'
-                        ];
-                    });
-                } else    if (strpos($url, 'goout.rs') !== false) {
-                    $crawler->filter('.events .event-item')->each(function (Crawler $node, $index) use (&$events, $url) {
-                        $title = $node->filter('.event-title')->text();
-                        $description = $node->filter('.event-description')->text();
-                        $date = $node->filter('.event-date')->text();
-                        $place = $node->filter('.event-location')->text();
+                return [
+                    'title' => $title,
+                    'date' => $date,
+                    'location' => $location,
+                    'link' => $link,
+                ];
+            });
 
-                        $events[] = [
-                            'id' => $url . '-' . $index,
-                            'title' => $title,
-                            'description' => $description,
-                            'date' => $date,
-                            'place' => $place,
-                            'category' => 'Various'
-                        ];
-                    });
-                }
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error fetching data from ' . $url . ': ' . $e->getMessage()], 500);
-            }
+            return response()->json($events);
+
+        } else {
+            return response()->json(['error' => 'Failed to fetch data'], 500);
         }
-
-        return response()->json($events);
     }
 }
