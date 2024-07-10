@@ -12,6 +12,14 @@ const EventsScraper = () => {
       try {
         const token = sessionStorage.getItem("token");
 
+        // Check if events are cached in localStorage
+        const cachedEvents = localStorage.getItem('events');
+        if (cachedEvents) {
+          setEvents(JSON.parse(cachedEvents));
+          setLoading(false);
+          return;
+        }
+
         const response = await axios.get('http://127.0.0.1:8000/api/dogadjajiScraper', {
           headers: {
             Authorization: `Bearer ${token}`
@@ -20,6 +28,9 @@ const EventsScraper = () => {
 
         setEvents(response.data);
         setLoading(false);
+
+        // Cache the events in localStorage
+        localStorage.setItem('events', JSON.stringify(response.data));
       } catch (error) {
         setError(error);
         setLoading(false);
@@ -42,7 +53,7 @@ const EventsScraper = () => {
             <p className="event-description">{event.description}</p>
             {event.date && <p className="event-date">Date: {event.date}</p>}
             <p className="event-place">Place: {event.location}</p>
-             <a href={event.link}>DETALJI</a>
+            <a href={event.link}>DETALJI</a>
           </div>
         ))}
       </div>
