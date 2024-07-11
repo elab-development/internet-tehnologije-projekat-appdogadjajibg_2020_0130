@@ -8,6 +8,8 @@ import Navbar from './Komponente/nav/Navbar';
 import DogadjajiList from './Komponente/Dogadjaji/DogadjajiList';
 import SeasonTicketPackages from './Komponente/SeasonTickets/SeasonTicketPackages';
 import EventsScraper from './Komponente/Dogadjaji/Scraper/EventsScraper';
+import Dogadjaji from './Komponente/Admin/Dogadjaji';
+import DogadjajForm from './Komponente/Admin/DogadjajForm';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,8 +28,11 @@ function App() {
           <Route path="/dogadjaji" element={<DogadjajiList />} />
 
           <Route path="/eventsScraper" element={<EventsScraper />} />
+          <Route path="/dogadjajiAdmin" element={<Dogadjaji />} />
+          <Route path="/dogadjaji/add" element={<DogadjajForm mode={"add"}/>} />
+          <Route path="/dogadjaji/update/:id" element={<DogadjajForm mode={"update"}/>} />
 
-
+         
         </Routes>
       </div>
     </Router>

@@ -34,7 +34,7 @@ Route::get('/dogadjaji', [DogadjajController::class, 'index']);
 Route::get('/dogadjajiScraper', [ScraperController::class, 'fetchEvents']);
 
 
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+Route::middleware(['auth:sanctum' ])->group(function () {
     Route::post('/dogadjaji', [DogadjajController::class, 'store']);
     Route::put('/dogadjaji/{id}', [DogadjajController::class, 'update']);
     Route::delete('/dogadjaji/{id}', [DogadjajController::class, 'destroy']);
@@ -47,15 +47,12 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::delete('/kategorije/{id}', [KategorijaController::class, 'destroy']);
 
     Route::apiResource('uloge', UlogaController::class);
-});
 
-Route::middleware(['auth:sanctum','role:korisnik'])->group(function () {
     Route::get('/dogadjaji/search', [DogadjajController::class, 'search']); 
     
     Route::get('/dogadjaji/{id}', [DogadjajController::class, 'show']);
-});
-Route::middleware(['auth:sanctum'])->group(function () {
-     
+
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('myProfile', [AuthController::class, 'myProfile']);
 });
+ 
