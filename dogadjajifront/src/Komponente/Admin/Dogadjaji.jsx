@@ -7,9 +7,8 @@ import './Dogadjaji.css';
 
 const Dogadjaji = () => {
   const { dogadjaji, loading, error } = useFetchDogadjaji();
-  const [localDogadjaji, setLocalDogadjaji] = useState(dogadjaji);
+  const [localDogadjaji, setLocalDogadjaji] = useState([]);
 
-  // Sinhronizacija lokalnog stanja sa učitanim događajima
   useEffect(() => {
     setLocalDogadjaji(dogadjaji);
   }, [dogadjaji]);
@@ -22,7 +21,7 @@ const Dogadjaji = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLocalDogadjaji(localDogadjaji.filter(dogadjaj => dogadjaj.id !== id));
+      setLocalDogadjaji((prevDogadjaji) => prevDogadjaji.filter(dogadjaj => dogadjaj.id !== id));
       alert('Događaj uspešno obrisan');
     } catch (error) {
       console.error('Greška prilikom brisanja događaja:', error);
