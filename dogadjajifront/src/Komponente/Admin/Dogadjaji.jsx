@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table';
 import useFetchDogadjaji from '../hooks/useFetchDogadjaji';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Dogadjaji.css';
 
 const Dogadjaji = () => {
@@ -36,8 +36,8 @@ const Dogadjaji = () => {
       { Header: 'Description', accessor: 'description' },
       { Header: 'Start Time', accessor: 'start_time' },
       { Header: 'End Time', accessor: 'end_time' },
-      { Header: 'Mesto ID', accessor: 'mesto_id' },
-      { Header: 'Kategorija ID', accessor: 'kategorija_id' },
+      { Header: 'Mesto', accessor: 'mesto.name' },
+      { Header: 'Kategorija', accessor: 'kategorija.name' },
       {
         Header: 'Actions',
         accessor: 'actions',
@@ -84,13 +84,14 @@ const Dogadjaji = () => {
 
   return (
     <div className="dogadjaji-container">
-      <h1>Događaji</h1>
+    
       <input
         value={globalFilter || ''}
         onChange={(e) => setGlobalFilter(e.target.value)}
         placeholder="Search"
         className="search-input"
-      />
+      /> <br />
+      <Link to="/dogadjaji/add" className="add-dogadjaj-button">Add New Event</Link>
       <table {...getTableProps()} className="dogadjaji-table">
         <thead>
           {headerGroups.map(headerGroup => (
@@ -133,7 +134,7 @@ const Dogadjaji = () => {
           Next
         </button>
       </div>
-      <Link to="/dogadjaji/add" className="add-dogadjaj-button">Add New Event</Link>
+     
     </div>
   );
 };
