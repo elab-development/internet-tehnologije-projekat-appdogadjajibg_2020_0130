@@ -1,23 +1,30 @@
- 
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../PocetnaStranica/HomePage.css';  
-import InputField from './InputField';  
+import '../PocetnaStranica/HomePage.css';
+import InputField from './InputField';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState('larkin.rashad@example.net');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState('');
-  let navigate= useNavigate();
+  let navigate = useNavigate();
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
       const { access_token, user } = response.data;
+      sessionStorage.setItem('user', JSON.stringify(user));
       sessionStorage.setItem('token', access_token);
       setUser(user);
-      navigate('/dogadjaji')
+      // Provera uloge korisnika
+      const isAdmin = user.roles.some(role => role.name === 'admin');
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dogadjaji');
+      }
     } catch (error) {
       setError('Invalid credentials. Please try again.');
     }
