@@ -18,6 +18,9 @@ const DogadjajForm = ({ mode }) => {
     mesto_id: '',
     kategorija_id: '',
     image: null,
+    new_mesto_name: '',
+    new_mesto_address: '',
+    new_kategorija_name: ''
   });
 
   useEffect(() => {
@@ -90,18 +93,21 @@ const DogadjajForm = ({ mode }) => {
       <textarea name="description" value={dogadjaj.description} onChange={handleInputChange} placeholder="Description" required />
       <input type="datetime-local" name="start_time" value={dogadjaj.start_time} onChange={handleInputChange} required />
       <input type="datetime-local" name="end_time" value={dogadjaj.end_time} onChange={handleInputChange} required />
-      <select name="mesto_id" value={dogadjaj.mesto_id} onChange={handleInputChange} required>
+      <select name="mesto_id" value={dogadjaj.mesto_id} onChange={handleInputChange}>
         <option value="">Select Mesto</option>
         {mesta.map(mesto => (
           <option key={mesto.id} value={mesto.id}>{mesto.name}</option>
         ))}
       </select>
-      <select name="kategorija_id" value={dogadjaj.kategorija_id} onChange={handleInputChange} required>
+      <input type="text" name="new_mesto_name" value={dogadjaj.new_mesto_name} onChange={handleInputChange} placeholder="New Mesto Name" />
+      <input type="text" name="new_mesto_address" value={dogadjaj.new_mesto_address} onChange={handleInputChange} placeholder="New Mesto Address" />
+      <select name="kategorija_id" value={dogadjaj.kategorija_id} onChange={handleInputChange}>
         <option value="">Select Kategorija</option>
         {kategorije.map(kategorija => (
           <option key={kategorija.id} value={kategorija.id}>{kategorija.name}</option>
         ))}
       </select>
+      <input type="text" name="new_kategorija_name" value={dogadjaj.new_kategorija_name} onChange={handleInputChange} placeholder="New Kategorija Name" />
       <input type="file" name="image" onChange={handleFileChange} />
       <button type="submit">{mode === 'add' ? 'Create' : 'Update'}</button>
     </form>
