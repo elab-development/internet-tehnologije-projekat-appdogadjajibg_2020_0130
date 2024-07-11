@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DogadjajController extends Controller
 {
@@ -175,4 +176,64 @@ class DogadjajController extends Controller
 
         return DogadjajResource::collection($dogadjaji);
     }
+    public function statistics()
+    {
+        try {
+            // Fetch events by category
+            $eventsByCategory = Dogadjaj::select(DB::raw('count(*) as count, kategorija_id'))
+                ->groupBy('kategorija_id')
+                ->with('kategorija')
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'category' => $item->kategorija ? $item->kategorija->name : 'Unknown',
+                        'count' => $item->count,
+                    ];
+                });
+    
+            // Log the eventsByCategory for debugging
+            \Log::info('Events By Category:', $eventsByCategory->toArray());
+    
+            // Fetch events by day of the week
+            $eventsByDay = Dogadjaj::select(DB::raw('count(*) as count, DAYOFWEEK(start_time) as day'))
+                ->groupBy(DB::raw('DAYOFWEEK(start_time)'))
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'day' => $this->getDayName($item->day),
+                        'count' => $item->count,
+                    ];
+                });
+    
+            // Log the eventsByDay for debugging
+             Log::info('Events By Day:', $eventsByDay->toArray());
+    
+            return response()->json([
+                'eventsByCategory' => $eventsByCategory,
+                'eventsByDay' => $eventsByDay,
+            ]);
+        } catch (\Exception $e) {
+             Log::error('Error fetching statistics:', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'An error occurred while fetching statistics'], 500);
+        }
+    }
+    
+    // Helper function to map day of the week to a readable format
+    private function getDayName($dayNumber)
+    {
+        $days = [
+            1 => 'Sunday',
+            2 => 'Monday',
+            3 => 'Tuesday',
+            4 => 'Wednesday',
+            5 => 'Thursday',
+            6 => 'Friday',
+            7 => 'Saturday',
+        ];
+    
+        return $days[$dayNumber] ?? 'Unknown';
+    }
+    
+    
+
 }

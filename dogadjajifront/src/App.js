@@ -10,6 +10,7 @@ import SeasonTicketPackages from './Komponente/SeasonTickets/SeasonTicketPackage
 import EventsScraper from './Komponente/Dogadjaji/Scraper/EventsScraper';
 import Dogadjaji from './Komponente/Admin/Dogadjaji';
 import DogadjajForm from './Komponente/Admin/DogadjajForm';
+import Admin from './Komponente/Admin/Admin';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +32,7 @@ function App() {
           <Route path="/dogadjajiAdmin" element={<Dogadjaji />} />
           <Route path="/dogadjaji/add" element={<DogadjajForm mode={"add"}/>} />
           <Route path="/dogadjaji/update/:id" element={<DogadjajForm mode={"update"}/>} />
-
+          <Route path="/admin" element={<Admin />} />
          
         </Routes>
       </div>

@@ -54,5 +54,6 @@ Route::middleware(['auth:sanctum' ])->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('myProfile', [AuthController::class, 'myProfile']);
+    Route::get('statistike', [DogadjajController::class, 'statistics']);
 });
  
