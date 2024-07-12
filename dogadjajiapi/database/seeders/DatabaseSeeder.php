@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
- 
+            // Kreiranje uloga
+            $uloge = Uloga::insert([
+                ['name' => 'admin'],
+                ['name' => 'moderator'],
+                ['name' => 'user']
+            ]);
         $users = User::factory(10)->create();
 
         // Dodavanje nasumičnih uloga svakom korisniku
